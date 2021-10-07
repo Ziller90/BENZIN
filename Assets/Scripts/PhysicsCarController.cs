@@ -25,7 +25,7 @@ public class PhysicsCarController : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        Vector3 Dirrection = CarControlJoystick;
+        Vector3 Dirrection = CarControlJoystick.Dirrection;
 
         AngleForwardToDirrection = Vector3.Angle(gameObject.transform.forward, Dirrection);
         AngleDirrectionToRight = Vector3.Angle(Dirrection, gameObject.transform.right);
