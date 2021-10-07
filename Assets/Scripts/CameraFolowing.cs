@@ -7,6 +7,7 @@ public class CameraFolowing : MonoBehaviour
     public GameObject GameObjectToFollow;
     public Vector3 Offset;
     public float FollowSpeed;
+    public float ADD;
     void Start()
     {
         
