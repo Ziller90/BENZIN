@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PhysicsCarController : MonoBehaviour
+public class Tank : MonoBehaviour
 {
    
     public FixedJoystick CarControlJoystick;
@@ -98,7 +98,7 @@ public class PhysicsCarController : MonoBehaviour
 }
 
 [System.Serializable] // DONT UNDERSTAND
-public class AxleInfo
+public class Tracks
 {
     public WheelCollider leftWheel;
     public WheelCollider rightWheel;
