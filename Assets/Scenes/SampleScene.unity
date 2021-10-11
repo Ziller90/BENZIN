@@ -979,7 +979,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 558079728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d7daf36d35d081419ef93f25f48f933, type: 3}
+  m_Script: {fileID: 11500000, guid: fbb5f3e1795c33345823457fb0ea43d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CarControlJoystick: {fileID: 2929252283493514335}
@@ -992,12 +992,12 @@ MonoBehaviour:
     rightWheel: {fileID: 358531068}
     motor: 1
     steering: 0
-  maxMotorTorque: 500
+  maxMotorTorque: 300
   AngleDirrectionToLeft: 0
   AngleDirrectionToRight: 0
   AngleForwardToDirrection: 0
   MaxSteeringAngle: 55
-  Brake: 0
+  Brake: 1000
   ExtraRotationSpeed: 0.35
 --- !u!1 &579217486
 GameObject:
@@ -1297,12 +1297,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e1e5267210d1f0489ca99c4b1bb6ac5, type: 3}
+  m_Script: {fileID: 11500000, guid: 51186e5edb487b743a52013a184833e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GameObjectToFollow: {fileID: 558079728}
   Offset: {x: 11, y: 19, z: -15}
   FollowSpeed: 0.01
+  ADD: 0
 --- !u!1 &1047872770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,10 +1606,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1074244145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76834bb14817cea41b0cadd487dbf3d0, type: 3}
+  m_Script: {fileID: 11500000, guid: dcfcf7cf69b5ba44caab0e7cdbf5e18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Handle: {fileID: 0}
+  Handle: {fileID: 1074244145}
   Horizontal: 0
   Vectical: 0
   isDraged: 0
@@ -3202,16 +3203,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1749177916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e561c994dad044e92127387ee1e1aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c607147b7be51743ac52dbff63011e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GunControlJoystick: {fileID: 1074244150}
-  RotationSpeed: 3
-  Dirrection: {x: 0, y: 0, z: 0}
-  LookDirrection: {x: 0, y: 0, z: 0, w: 0}
+  GunRotationSpeed: 0.03
   Car: {fileID: 558079730}
-  YRotation: 0
-  FixAngle: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1795976103
 GameObject:
   m_ObjectHideFlags: 0
@@ -3738,10 +3735,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2929252283493514332}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76834bb14817cea41b0cadd487dbf3d0, type: 3}
+  m_Script: {fileID: 11500000, guid: dcfcf7cf69b5ba44caab0e7cdbf5e18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Handle: {fileID: 0}
+  Handle: {fileID: 2929252283493514332}
   Horizontal: 0
   Vectical: 0
   isDraged: 0
