@@ -11,7 +11,8 @@ public class InputSwitch : MonoBehaviour
         Gamepad
     }
     [SerializeField]
-    InputSystem CurrentInputSystem;
+    public InputSystem CurrentInputSystem;
+    public bool AllowAutoRecognition;
     void Start()
     {
         
@@ -20,30 +21,33 @@ public class InputSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if  (Application.isEditor)
+        if (AllowAutoRecognition)
         {
-            if (Input.GetJoystickNames().Length > 0)
+            if (Application.isEditor)
             {
-                CurrentInputSystem = InputSystem.Gamepad;
+                if (Input.GetJoystickNames().Length > 0)
+                {
+                    CurrentInputSystem = InputSystem.Gamepad;
+                }
+                else
+                {
+                    CurrentInputSystem = InputSystem.KeyBoardAndMouse;
+                }
             }
-            else
+            else if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                CurrentInputSystem = InputSystem.KeyBoardAndMouse;
+                CurrentInputSystem = InputSystem.Mobile;
             }
-        }
-        else if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-        {
-            CurrentInputSystem = InputSystem.Mobile;
-        }
-        else if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.LinuxPlayer || Application.platform == RuntimePlatform.OSXEditor)
-        {
-            if (Input.GetJoystickNames().Length > 0)
+            else if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.LinuxPlayer || Application.platform == RuntimePlatform.OSXEditor)
             {
-                CurrentInputSystem = InputSystem.Gamepad;
-            }
-            else
-            {
-                CurrentInputSystem = InputSystem.KeyBoardAndMouse;
+                if (Input.GetJoystickNames().Length > 0)
+                {
+                    CurrentInputSystem = InputSystem.Gamepad;
+                }
+                else
+                {
+                    CurrentInputSystem = InputSystem.KeyBoardAndMouse;
+                }
             }
         }
     }

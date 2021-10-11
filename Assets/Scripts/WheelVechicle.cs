@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Tank : MonoBehaviour
+public class WheelVechicle : MonoBehaviour
 {
-   
+    public InputSwitch inputSwitch;
     public FixedJoystick CarControlJoystick;
     public List<AxleInfo> axleInfos;  
     public float AccelerationSpeed;  
@@ -28,15 +28,17 @@ public class Tank : MonoBehaviour
         CurrentMaxSpeed = MaxSpeed * CarControlJoystick.JoystickMagnitude;
         CurrentSpeed = ((float) ((int)(rigidbody.velocity.magnitude * 100))) / 100;
 
-
-
-        Vector3 Dirrection = CarControlJoystick.Dirrection;
-
-
-
-        AddAcceleration(CarControlJoystick.JoystickMagnitude);
-        TurnToDirrection(Dirrection);
-        PaintGizmos(Dirrection);
+        if (inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.Mobile || inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.Gamepad)
+        {
+            Vector3 Dirrection = CarControlJoystick.Dirrection;
+            AddAcceleration(CarControlJoystick.JoystickMagnitude);
+            TurnToDirrection(Dirrection);
+        }
+        if (inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.KeyBoardAndMouse)
+        {
+            AddAcceleration(CarControlJoystick.Vectical);
+            TurnToAngle(CarControlJoystick.Horizontal * MaxSteeringAngle);
+        }
 
         Brake = CarControlJoystick.JoystickMagnitude == 0 ? 1000 : 0;
 
@@ -98,7 +100,7 @@ public class Tank : MonoBehaviour
 }
 
 [System.Serializable] // DONT UNDERSTAND
-public class Tracks
+public class AxleInfo
 {
     public WheelCollider leftWheel;
     public WheelCollider rightWheel;
