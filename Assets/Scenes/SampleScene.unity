@@ -928,6 +928,7 @@ GameObject:
   - component: {fileID: 558079730}
   - component: {fileID: 558079729}
   - component: {fileID: 558079731}
+  - component: {fileID: 558079732}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -983,7 +984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputSwitch: {fileID: 933157840}
-  CarControlJoystick: {fileID: 2929252283493514335}
+  inputManager: {fileID: 558079732}
   axleInfos:
   - leftWheel: {fileID: 378374747}
     rightWheel: {fileID: 1724344922}
@@ -996,9 +997,27 @@ MonoBehaviour:
   AccelerationSpeed: 300
   MaxSteeringAngle: 55
   Brake: 1000
-  ExtraRotationSpeed: 0.35
-  MaxSpeed: 1
+  ExtraRotationSpeed: 1
+  MaxSpeed: 5
+  ReverseMaxSpeed: -3
   CurrentSpeed: 0
+  CurrentMaxSpeed: 0
+--- !u!114 &558079732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558079728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b18c24288ca5073479637294fd8bbc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Horizontal: 0
+  Vertical: 0
+  Direction: {x: 0, y: 0, z: 0}
+  IsUsing: 0
 --- !u!1 &579217486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,6 +1206,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &779390958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 779390960}
+  - component: {fileID: 779390959}
+  m_Layer: 0
+  m_Name: KeyBoardInput
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &779390959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779390958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5c099da6ff2a24e9096fcdd565bf67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputManager: {fileID: 558079732}
+  Vertical: 0
+  Horizontal: 0
+--- !u!4 &779390960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779390958}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -249.18533, y: -73.99414, z: 76.77686}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &933157839
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,7 +1281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0168a2dd891f28e46b07fb11bd2da377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentInputSystem: 0
+  CurrentInputSystem: 1
+  AllowAutoRecognition: 0
 --- !u!4 &933157841
 Transform:
   m_ObjectHideFlags: 0
@@ -1647,17 +1713,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074244145}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcfcf7cf69b5ba44caab0e7cdbf5e18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputManager: {fileID: 0}
   Handle: {fileID: 1074244145}
   Horizontal: 0
-  Vectical: 0
+  Vertical: 0
   isDraged: 0
   JoystickMagnitude: 0
-  Dirrection: {x: 0, y: 0, z: 0}
+  Direction: {x: 0, y: 0, z: 0}
   MaxMagnitude: 200
 --- !u!1 &1099021284
 GameObject:
@@ -3830,12 +3897,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcfcf7cf69b5ba44caab0e7cdbf5e18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputManager: {fileID: 558079732}
   Handle: {fileID: 2929252283493514332}
   Horizontal: 0
-  Vectical: 0
+  Vertical: 0
   isDraged: 0
   JoystickMagnitude: 0
-  Dirrection: {x: 0, y: 0, z: 0}
+  Direction: {x: 0, y: 0, z: 0}
   MaxMagnitude: 100
 --- !u!114 &2929252284784263076
 MonoBehaviour:

@@ -2,20 +2,21 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class WheelVechicle : MonoBehaviour
+public class WheelVehicle : MonoBehaviour
 {
     public InputSwitch inputSwitch;
-    public FixedJoystick CarControlJoystick;
+    public VehicleInputManager inputManager;
     public List<AxleInfo> axleInfos;  
     public float AccelerationSpeed;  
     public float MaxSteeringAngle;
     public float Brake;
     public float ExtraRotationSpeed;
     public float MaxSpeed;
+    public float ReverseMaxSpeed;
     public float CurrentSpeed;
 
     Rigidbody rigidbody;
-    float CurrentMaxSpeed;
+    public float CurrentMaxSpeed;
     float motor;
     float steering;
 
@@ -25,22 +26,23 @@ public class WheelVechicle : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        CurrentMaxSpeed = MaxSpeed * CarControlJoystick.JoystickMagnitude;
         CurrentSpeed = ((float) ((int)(rigidbody.velocity.magnitude * 100))) / 100;
 
         if (inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.Mobile || inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.Gamepad)
         {
-            Vector3 Dirrection = CarControlJoystick.Dirrection;
-            AddAcceleration(CarControlJoystick.JoystickMagnitude);
-            TurnToDirrection(Dirrection);
+            CurrentMaxSpeed = MaxSpeed * inputManager.Direction.magnitude; 
+            Vector3 Direction = inputManager.Direction;
+            AddAcceleration(inputManager.Direction.magnitude);
+            TurnToDirrection(Direction);
         }
         if (inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.KeyBoardAndMouse)
         {
-            AddAcceleration(CarControlJoystick.Vectical);
-            TurnToAngle(CarControlJoystick.Horizontal * MaxSteeringAngle);
+            CurrentMaxSpeed = MaxSpeed * inputManager.Vertical;
+            AddAcceleration(inputManager.Vertical);
+            TurnToAngle(inputManager.Horizontal * MaxSteeringAngle);
         }
 
-        Brake = CarControlJoystick.JoystickMagnitude == 0 ? 1000 : 0;
+        Brake = inputManager.IsUsing ? 0 : 1000;
 
 
         foreach (AxleInfo axleInfo in axleInfos) // DONT UNDERSTAND
@@ -59,11 +61,11 @@ public class WheelVechicle : MonoBehaviour
             }
         }
     }
-    void TurnToDirrection(Vector3 Dirrection)
+    void TurnToDirrection(Vector3 Direction)
     {
-        float AngleForwardToDirrection = Vector3.Angle(gameObject.transform.forward, Dirrection);
-        float AngleDirrectionToRight = Vector3.Angle(Dirrection, gameObject.transform.right);
-        float AngleDirrectionToLeft = Vector3.Angle(Dirrection, -gameObject.transform.right);
+        float AngleForwardToDirrection = Vector3.Angle(gameObject.transform.forward, Direction);
+        float AngleDirrectionToRight = Vector3.Angle(Direction, gameObject.transform.right);
+        float AngleDirrectionToLeft = Vector3.Angle(Direction, -gameObject.transform.right);
 
         if (AngleDirrectionToLeft < 90)
         {
@@ -82,20 +84,15 @@ public class WheelVechicle : MonoBehaviour
     }
     void AddAcceleration(float AccelerationPower)
     {
-        if (CurrentSpeed < CurrentMaxSpeed)
+        if (CurrentSpeed < CurrentMaxSpeed && CurrentSpeed > ReverseMaxSpeed)
         {
+            Debug.Log(AccelerationPower + " " + AccelerationSpeed + " " + motor );
             motor = AccelerationSpeed * AccelerationPower;
         }
         else 
         {
             motor = 0;
         }
-    }
-    void PaintGizmos(Vector3 Dirrection)
-    {
-        Debug.DrawLine(gameObject.transform.position, gameObject.transform.position + Dirrection, Color.red);
-        Debug.DrawLine(gameObject.transform.position, gameObject.transform.position + gameObject.transform.right, Color.green);
-        Debug.DrawLine(gameObject.transform.position, gameObject.transform.position + -gameObject.transform.right, Color.yellow);
     }
 }
 
