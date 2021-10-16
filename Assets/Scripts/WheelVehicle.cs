@@ -5,39 +5,41 @@ using System.Collections.Generic;
 public class WheelVehicle : MonoBehaviour
 {
     public InputSwitch inputSwitch;
-    public VehicleInputManager inputManager;
+    public JoystickInputManager inputManager;
     public List<AxleInfo> axleInfos;  
     public float AccelerationSpeed;  
     public float MaxSteeringAngle;
     public float Brake;
-    public float ExtraRotationSpeed;
+    public float RotationSpeed;
     public float MaxSpeed;
     public float ReverseMaxSpeed;
     public float CurrentSpeed;
+    public bool isTank;
 
-    Rigidbody rigidbody;
     public float CurrentMaxSpeed;
     float motor;
     float steering;
+    public bool isReverse;
 
     public void Start()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+
     }
     public void FixedUpdate()
     {
-        CurrentSpeed = ((float) ((int)(rigidbody.velocity.magnitude * 100))) / 100;
+       
 
         if (inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.Mobile || inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.Gamepad)
         {
-            CurrentMaxSpeed = MaxSpeed * inputManager.Direction.magnitude; 
+            CurrentMaxSpeed = Mathf.Clamp(MaxSpeed * inputManager.Direction.magnitude, ReverseMaxSpeed, MaxSpeed); 
             Vector3 Direction = inputManager.Direction;
             AddAcceleration(inputManager.Direction.magnitude);
             TurnToDirrection(Direction);
         }
         if (inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.KeyBoardAndMouse)
         {
-            CurrentMaxSpeed = MaxSpeed * inputManager.Vertical;
+            CurrentMaxSpeed = Mathf.Clamp(MaxSpeed * inputManager.Vertical, ReverseMaxSpeed, MaxSpeed);
+            isReverse = inputManager.Vertical <= 0 ? true : false;
             AddAcceleration(inputManager.Vertical);
             TurnToAngle(inputManager.Horizontal * MaxSteeringAngle);
         }
@@ -45,9 +47,9 @@ public class WheelVehicle : MonoBehaviour
         Brake = inputManager.IsUsing ? 0 : 1000;
 
 
-        foreach (AxleInfo axleInfo in axleInfos) // DONT UNDERSTAND
+        foreach (AxleInfo axleInfo in axleInfos) 
         {
-            if (axleInfo.steering)
+            if (axleInfo.steering && isTank == false)
             {
                 axleInfo.leftWheel.steerAngle = steering;
                 axleInfo.rightWheel.steerAngle = steering;
@@ -58,6 +60,7 @@ public class WheelVehicle : MonoBehaviour
                 axleInfo.rightWheel.motorTorque = motor;
                 axleInfo.leftWheel.brakeTorque = Brake;
                 axleInfo.rightWheel.brakeTorque = Brake;
+                CurrentSpeed = axleInfo.rightWheel.rpm;
             }
         }
     }
@@ -79,17 +82,28 @@ public class WheelVehicle : MonoBehaviour
 
     void TurnToAngle(float Angle)
     {
-        steering = Mathf.Clamp(Angle, -MaxSteeringAngle, MaxSteeringAngle);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0,Angle,0), ExtraRotationSpeed);
+        if (isTank)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, Angle, 0), RotationSpeed);
+        }
+        else
+        {
+            steering = Mathf.Clamp(Angle, -MaxSteeringAngle, MaxSteeringAngle);
+            if (isReverse == false)
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, Angle, 0), RotationSpeed);
+        }
     }
     void AddAcceleration(float AccelerationPower)
     {
-        if (CurrentSpeed < CurrentMaxSpeed && CurrentSpeed > ReverseMaxSpeed)
+        if (AccelerationPower > 0 && CurrentSpeed < CurrentMaxSpeed)
         {
-            Debug.Log(AccelerationPower + " " + AccelerationSpeed + " " + motor );
             motor = AccelerationSpeed * AccelerationPower;
         }
-        else 
+        else if (AccelerationPower < 0 && CurrentSpeed > ReverseMaxSpeed)
+        {
+            motor = AccelerationSpeed * AccelerationPower;
+        }
+        else
         {
             motor = 0;
         }

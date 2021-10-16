@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-    public FixedJoystick GunControlJoystick;
+    public JoystickInputManager GunControlJoystick;
     public float GunRotationSpeed;
     public Transform Car;
 
@@ -24,13 +24,9 @@ public class GunController : MonoBehaviour
 
         Direction = FixAngle * GunControlJoystick.Direction;
         Quaternion LookDirrection = Quaternion.LookRotation(Direction);
-        if (GunControlJoystick.isDraged)
+        if (GunControlJoystick.IsUsing)
         {
             transform.localRotation = Quaternion.RotateTowards(transform.localRotation, LookDirrection, GunRotationSpeed);
-            if (GunControlJoystick.JoystickMagnitude == 2)
-            {
-                Debug.Log("Bullet");
-            }
         }
     }
     void Shoot()

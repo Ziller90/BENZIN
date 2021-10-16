@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class FixedJoystick : MonoBehaviour, IPointerUpHandler, IDragHandler, IPointerDownHandler
 {
-    public VehicleInputManager inputManager;
+    public JoystickInputManager
+        inputManager;
     public GameObject Handle;
     public float Horizontal;
     public float Vertical;
@@ -36,8 +37,7 @@ public class FixedJoystick : MonoBehaviour, IPointerUpHandler, IDragHandler, IPo
         Direction = Utils.GetDirection(Horizontal, Vertical);
         Direction = FixAngle * Direction;
 
-        inputManager.Horizontal = Horizontal;
-        inputManager.Vertical = Vertical;
+        inputManager.Direction = Direction;
     }
 
     public void OnPointerUp(PointerEventData eventData) 

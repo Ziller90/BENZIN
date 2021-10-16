@@ -13,14 +13,22 @@ public class InputSwitch : MonoBehaviour
     [SerializeField]
     public InputSystem CurrentInputSystem;
     public bool AllowAutoRecognition;
+    public GameObject LeftVirtualJoystick;
+    public GameObject RightVirtualJoystick;
     void Start()
     {
-        
-    }
+        if (CurrentInputSystem == InputSystem.Mobile)
+        {
+            LeftVirtualJoystick.SetActive(true);
+            RightVirtualJoystick.SetActive(true);
+        }
+        else
+        {
+            LeftVirtualJoystick.SetActive(false);
+            RightVirtualJoystick.SetActive(false);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+
         if (AllowAutoRecognition)
         {
             if (Application.isEditor)
@@ -34,7 +42,7 @@ public class InputSwitch : MonoBehaviour
                     CurrentInputSystem = InputSystem.KeyBoardAndMouse;
                 }
             }
-            else if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+            else if (Application.isMobilePlatform)
             {
                 CurrentInputSystem = InputSystem.Mobile;
             }
@@ -51,4 +59,11 @@ public class InputSwitch : MonoBehaviour
             }
         }
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+       
+    }
+
 }
