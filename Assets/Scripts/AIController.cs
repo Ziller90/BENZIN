@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIVehicleController : MonoBehaviour
+public class AIController : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

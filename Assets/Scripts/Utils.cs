@@ -21,4 +21,5 @@ public class Utils : MonoBehaviour
         Direction = FixAngle * Direction;
         return Direction;
     }
+    
 }

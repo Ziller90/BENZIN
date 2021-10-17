@@ -15,6 +15,7 @@ public class WheelVehicle : MonoBehaviour
     public float ReverseMaxSpeed;
     public float CurrentSpeed;
     public bool isTank;
+    public bool isAI;
 
     public float CurrentMaxSpeed;
     float motor;
@@ -29,14 +30,14 @@ public class WheelVehicle : MonoBehaviour
     {
        
 
-        if (inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.Mobile || inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.Gamepad)
+        if (inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.Mobile || inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.Gamepad || isAI == true)
         {
             CurrentMaxSpeed = Mathf.Clamp(MaxSpeed * inputManager.Direction.magnitude, ReverseMaxSpeed, MaxSpeed); 
             Vector3 Direction = inputManager.Direction;
             AddAcceleration(inputManager.Direction.magnitude);
             TurnToDirrection(Direction);
         }
-        if (inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.KeyBoardAndMouse)
+        if (inputSwitch.CurrentInputSystem == InputSwitch.InputSystem.KeyBoardAndMouse && isAI == false)
         {
             CurrentMaxSpeed = Mathf.Clamp(MaxSpeed * inputManager.Vertical, ReverseMaxSpeed, MaxSpeed);
             isReverse = inputManager.Vertical <= 0 ? true : false;
