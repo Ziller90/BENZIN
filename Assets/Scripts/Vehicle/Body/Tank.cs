@@ -29,6 +29,7 @@ public class Tank : MonoBehaviour
         {
             if (axleInfo.motor)
             {
+
                 axleInfo.leftWheel.motorTorque = motor;
                 axleInfo.rightWheel.motorTorque = motor;
                 axleInfo.leftWheel.brakeTorque = Brake;
@@ -40,7 +41,19 @@ public class Tank : MonoBehaviour
     }
     void TurnToAngle(float Angle) // Angle -180 to 180
     {
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, Angle, 0), RotationSpeed);
+        if (ThisVehicle.AccelerationPower < 0)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, -Angle, 0), RotationSpeed);
+        }
+        else
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, Angle, 0), RotationSpeed);
+            if (Mathf.Abs(Angle) > 70)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, Angle, 0), RotationSpeed * ThisVehicle.AccelerationPower * Mathf.Abs(Angle) / 90 / 4);
+            }
+        }
+
     }
     void AddAcceleration(float AccelerationPower) // Power -1 to 1
     {
@@ -50,6 +63,10 @@ public class Tank : MonoBehaviour
         }
         else if (AccelerationPower < 0 && ThisVehicle.CurrentSpeed > ThisVehicle.MaxReverseSpeed)
         {
+            if (ThisVehicle.CurrentSpeed > 10)
+            {
+                Brake = ThisVehicle.BrakePower;
+            }
             motor = ThisVehicle.AccelerationSpeed * AccelerationPower;
         }
         else
