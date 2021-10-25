@@ -9,7 +9,7 @@ public class GunController : MonoBehaviour
     public Transform Car;
 
 
-    Vector3 Direction;
+    Vector3 Direction = new Vector3(1,1,1);
     Quaternion FixAngle;
 
     void Start()
@@ -21,9 +21,11 @@ public class GunController : MonoBehaviour
     void FixedUpdate()
     {
         FixAngle = Quaternion.Euler(0, -Car.rotation.eulerAngles.y, 0);
-
+        Quaternion LookDirrection = new Quaternion();
         Direction = FixAngle * GunControlJoystick.Direction;
-        Quaternion LookDirrection = Quaternion.LookRotation(Direction);
+        if (Direction != Vector3.zero)
+           LookDirrection = Quaternion.LookRotation(Direction);
+
         if (GunControlJoystick.IsUsing)
         {
             transform.localRotation = Quaternion.RotateTowards(transform.localRotation, LookDirrection, GunRotationSpeed);

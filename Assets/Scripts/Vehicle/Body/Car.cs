@@ -19,6 +19,7 @@ public class Car : MonoBehaviour
     private void Start()
     {
         ThisVehicle = gameObject.GetComponent<Vehicle>();
+        gameObject.GetComponent<Rigidbody>().centerOfMass = new Vector3(0, -1, 0);
     }
     void FixedUpdate()
     {

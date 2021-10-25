@@ -15,11 +15,13 @@ public class AIController : MonoBehaviour
     public Transform ObjectToFollow;
     public Transform PatrollingArea;
     public Transform ObjectToAttack;
-    public AIVNavigationManager navigationManager;
+    public AINavigationManager navigationManager;
+    public AISensors Sensors;
 
+    public float MinDistanceToAttack;
     public Vector3 MoveTarget;
 
-
+    public GameObject NearestEnemy;
     void Start()
     {
         
@@ -28,16 +30,28 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        NearestEnemy = Sensors.NearestEnemy;
+
+        if (Sensors.EnemiesInDetectionZone.Count != 0)
+        {
+            CurrentState = State.Following;
+            ObjectToFollow = NearestEnemy.transform;
+        }
+        else
+        {
+            CurrentState = State.Idle;
+        }
+
         switch (CurrentState)
         {
             case State.Idle:
-                MoveTarget = gameObject.transform.position;
+                navigationManager.SetTarget(gameObject.transform);
                 break;
             case State.Attacking:
                 MoveTarget = ObjectToAttack.position;
                 break;
             case State.Following:
-                MoveTarget = ObjectToFollow.position;
+                navigationManager.SetTarget(ObjectToFollow);
                 break;
             case State.Patrolling:
                 break;

@@ -13,7 +13,7 @@ public class CameraFolowing : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
     {
         Vector3 GoalPoint = GameObjectToFollow.transform.position + Offset;
         gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, GoalPoint, FollowSpeed);
