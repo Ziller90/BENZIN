@@ -2,27 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunController : MonoBehaviour
+public class GunStandartRotaion : MonoBehaviour
 {
     public JoystickInputManager GunControlJoystick;
     public float GunRotationSpeed;
     public Transform Car;
 
+    Vector3 Direction;
+    Quaternion CarRotationAngle;
 
-    Vector3 Direction = new Vector3(1,1,1);
-    Quaternion FixAngle;
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
-        FixAngle = Quaternion.Euler(0, -Car.rotation.eulerAngles.y, 0);
+        CarRotationAngle = Quaternion.Euler(0, -Car.rotation.eulerAngles.y, 0);
         Quaternion LookDirrection = new Quaternion();
-        Direction = FixAngle * GunControlJoystick.Direction;
+        Direction = CarRotationAngle * GunControlJoystick.Direction;
         if (Direction != Vector3.zero)
            LookDirrection = Quaternion.LookRotation(Direction);
 
@@ -31,9 +24,4 @@ public class GunController : MonoBehaviour
             transform.localRotation = Quaternion.RotateTowards(transform.localRotation, LookDirrection, GunRotationSpeed);
         }
     }
-    void Shoot()
-    {
-
-    }
-
 }

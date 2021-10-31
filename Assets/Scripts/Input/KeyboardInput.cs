@@ -5,8 +5,10 @@ using UnityEngine;
 public class KeyboardInput : MonoBehaviour
 {
     public JoystickInputManager inputManager;
+    public ButtonsInput buttonsInput;
     public float Vertical;
     public float Horizontal;
+
     void Start()
     {
         
@@ -15,6 +17,7 @@ public class KeyboardInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        buttonsInput.isBraking = Input.GetKey(KeyCode.Space);
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S))
         {
             Vertical = 0;

@@ -14,11 +14,11 @@ public class Utils : MonoBehaviour
     {
         
     }
-    public static Vector3 GetDirection(float Horizontal, float Vertical)
+    public static Vector3 GetDirection(float Horizontal, float Vertical, int FixAngle)
     {
-        Quaternion FixAngle = Quaternion.Euler(0, -30, 0);
+        Quaternion FixQuaternion = Quaternion.Euler(0, FixAngle, 0);
         Vector3 Direction = Vector3.ClampMagnitude(new Vector3(Horizontal, 0, Vertical), 1);
-        Direction = FixAngle * Direction;
+        Direction = FixQuaternion * Direction;
         return Direction;
     }
     public static Vector3 GetNearestPoint(Vector3 MainPoint, Vector3[] Points) 
@@ -72,6 +72,13 @@ public class Utils : MonoBehaviour
             }
         }
         return NearestGameObject;
+    }
+    public static float Round(float Number, int RoundIndex)
+    {
+        float temp = Number * RoundIndex;
+        temp = (int)temp;
+        temp = temp / RoundIndex;
+        return (temp);
     }
 
 }

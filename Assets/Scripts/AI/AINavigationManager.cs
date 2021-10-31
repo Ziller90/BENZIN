@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class AIVNavigationManager : MonoBehaviour
+public class AINavigationManager : MonoBehaviour
 {
     public Transform Vehicle;
     public float MinDistanceToTarget;
@@ -26,10 +26,10 @@ public class AIVNavigationManager : MonoBehaviour
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         gameObject.transform.localPosition = StartPosition;
+
         if (Vector3.Distance(Vehicle.position, Target.position) > MinDistanceToTarget)
         {
             Corners = navMeshAgent.path.corners;
@@ -41,15 +41,5 @@ public class AIVNavigationManager : MonoBehaviour
         {
             VehicleInput.Direction = Vector3.zero;
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        foreach (Vector3 corner in Corners)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(corner, 0.5f);
-        }
-        Gizmos.DrawRay(gameObject.transform.position, (NextCorner - transform.position).normalized);
     }
 }

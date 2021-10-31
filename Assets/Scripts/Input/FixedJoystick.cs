@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class FixedJoystick : MonoBehaviour, IPointerUpHandler, IDragHandler, IPointerDownHandler
 {
-    public JoystickInputManager
-        inputManager;
+    public JoystickInputManager inputManager;
+    public ButtonsInput buttonsInput;
     public GameObject Handle;
     public float Horizontal;
     public float Vertical;
@@ -16,12 +16,13 @@ public class FixedJoystick : MonoBehaviour, IPointerUpHandler, IDragHandler, IPo
     public float JoystickMagnitude;
     public Vector3 Direction;
     public float MaxMagnitude;
-
-    Quaternion FixAngle;                            
+                         
     GameObject HandleBackGround;
     bool HandlerIsPressed;
     Vector2 TouchPosition;
     Vector2 LocalPoint;
+
+    public bool RightJoystick;
 
     void Start()
     {
@@ -34,10 +35,31 @@ public class FixedJoystick : MonoBehaviour, IPointerUpHandler, IDragHandler, IPo
         Vertical = Handle.transform.localPosition.y / 100;
         Horizontal = (Handle.transform.localPosition.x / 100);
 
-        Direction = Utils.GetDirection(Horizontal, Vertical);
-        Direction = FixAngle * Direction;
-
+        Direction = Utils.GetDirection(Horizontal, Vertical, -30);
         inputManager.Direction = Direction;
+
+        if (RightJoystick == true)
+        {
+            if (Vertical > 1 || Horizontal > 1 || Horizontal < -1 || Vertical < -1)
+            {
+                buttonsInput.isShooting = true;
+            }
+            else
+            {
+                buttonsInput.isShooting = false;
+            }
+        }
+        else
+        {
+            if (Direction.magnitude == 0)
+            {
+                buttonsInput.isBraking = true;
+            }
+            else
+            {
+                buttonsInput.isBraking = false;
+            }
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData) 

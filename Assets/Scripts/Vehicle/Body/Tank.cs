@@ -4,23 +4,30 @@ using UnityEngine;
 
 public class Tank : MonoBehaviour
 {
-     Vehicle ThisVehicle;
+    Vehicle ThisVehicle;
     public List<AxleInfo> axleInfos;
     public float Brake;
     public float RotationSpeed;
 
     float CurrentMaxSpeed;
     float motor;
-    bool isReverse;
 
     private void Start()
     {
         ThisVehicle = gameObject.GetComponent<Vehicle>();
+        gameObject.GetComponent<Rigidbody>().centerOfMass = new Vector3(0, -1, 0);
     }
     void FixedUpdate()
     {
         CurrentMaxSpeed = ThisVehicle.AccelerationPower * ThisVehicle.MaxSpeed;
-        Brake = ThisVehicle.AccelerationPower == 0 ? 1000 : 0;
+        if (ThisVehicle.ButtonsInput.isBraking == true)
+        {
+            Brake = ThisVehicle.MaxBrakePower;
+        }
+        else
+        {
+            Brake = 0;
+        }
 
         TurnToAngle(ThisVehicle.TurnAngle);
         AddAcceleration(ThisVehicle.AccelerationPower);
@@ -29,7 +36,6 @@ public class Tank : MonoBehaviour
         {
             if (axleInfo.motor)
             {
-
                 axleInfo.leftWheel.motorTorque = motor;
                 axleInfo.rightWheel.motorTorque = motor;
                 axleInfo.leftWheel.brakeTorque = Brake;
@@ -53,7 +59,6 @@ public class Tank : MonoBehaviour
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, Angle, 0), RotationSpeed * ThisVehicle.AccelerationPower * Mathf.Abs(Angle) / 90 / 4);
             }
         }
-
     }
     void AddAcceleration(float AccelerationPower) // Power -1 to 1
     {
@@ -65,7 +70,7 @@ public class Tank : MonoBehaviour
         {
             if (ThisVehicle.CurrentSpeed > 10)
             {
-                Brake = ThisVehicle.BrakePower;
+                Brake = ThisVehicle.MaxBrakePower;
             }
             motor = ThisVehicle.AccelerationSpeed * AccelerationPower;
         }

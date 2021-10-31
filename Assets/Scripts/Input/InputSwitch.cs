@@ -12,23 +12,15 @@ public class InputSwitch : MonoBehaviour
     }
     [SerializeField]
     public InputSystem CurrentInputSystem;
+
     public bool AllowAutoRecognition;
     public GameObject LeftVirtualJoystick;
     public GameObject RightVirtualJoystick;
+
+    public GameObject KeyBoardMouseInput;
+    public GameObject GamepadInput;
     void Start()
     {
-        if (CurrentInputSystem == InputSystem.Mobile)
-        {
-            LeftVirtualJoystick.SetActive(true);
-            RightVirtualJoystick.SetActive(true);
-        }
-        else
-        {
-            LeftVirtualJoystick.SetActive(false);
-            RightVirtualJoystick.SetActive(false);
-        }
-
-
         if (AllowAutoRecognition)
         {
             if (Application.isEditor)
@@ -63,7 +55,27 @@ public class InputSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        switch (CurrentInputSystem)
+        {
+            case InputSystem.Gamepad:
+                LeftVirtualJoystick.SetActive(false);
+                RightVirtualJoystick.SetActive(false);
+                KeyBoardMouseInput.SetActive(false);
+                GamepadInput.SetActive(true);
+                break;
+            case InputSystem.Mobile:
+                LeftVirtualJoystick.SetActive(true);
+                RightVirtualJoystick.SetActive(true);
+                KeyBoardMouseInput.SetActive(false);
+                GamepadInput.SetActive(false);
+                break;
+            case InputSystem.KeyBoardAndMouse:
+                LeftVirtualJoystick.SetActive(false);
+                RightVirtualJoystick.SetActive(false);
+                KeyBoardMouseInput.SetActive(true);
+                GamepadInput.SetActive(false);
+                break;
+        }
     }
 
 }

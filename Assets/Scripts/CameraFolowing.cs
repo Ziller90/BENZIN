@@ -5,8 +5,10 @@ using UnityEngine;
 public class CameraFolowing : MonoBehaviour
 {
     public GameObject GameObjectToFollow;
+    public Rigidbody RigidBody;
     public Vector3 Offset;
     public float FollowSpeed;
+
     void Start()
     {
         
@@ -16,6 +18,6 @@ public class CameraFolowing : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 GoalPoint = GameObjectToFollow.transform.position + Offset;
-        gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, GoalPoint, FollowSpeed);
+        gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, GoalPoint, FollowSpeed );
     }
 }

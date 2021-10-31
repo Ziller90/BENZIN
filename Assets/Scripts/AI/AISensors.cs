@@ -9,13 +9,11 @@ public class AISensors : MonoBehaviour
 
     public GameObject NearestEnemy;
     public GameObject Vehicle;
-    void Start()
-    {
-        
-    }
+
     private void FixedUpdate()
     {
-        NearestEnemy = Utils.GetNearestGameObject(Vehicle, EnemiesInDetectionZone);
+        if (EnemiesInDetectionZone.Count > 0)
+           NearestEnemy = Utils.GetNearestGameObject(Vehicle, EnemiesInDetectionZone);
     }
 
     private void OnTriggerEnter(Collider NewTrigger)
@@ -35,28 +33,4 @@ public class AISensors : MonoBehaviour
             EnemiesInDetectionZone.Remove(Trigger.gameObject);
         }
     }
-
-
-
-
-
-
-
-    //public List<GameObject> VisualFinding(int MaxLength, int FieldOfViewAngle, int Period)
-    //{
-    //    List<GameObject> UnitsSee = new List<GameObject>();
-
-    //    for (int i = -(FieldOfViewAngle / 2); i < FieldOfViewAngle / 2; i = i + Period)
-    //    {
-    //        Debug.DrawRay(gameObject.transform.position, Quaternion.Euler(0, i, 0) * gameObject.transform.forward * MaxLength, Color.red);
-    //        if (Physics.Raycast(gameObject.transform.position, Quaternion.Euler(0, i, 0) * gameObject.transform.forward * MaxLength, out RaycastHit hit))
-    //        {
-    //            if (hit.collider.gameObject.layer == 6 && hit.collider.gameObject.GetComponent<FractionMarker>().ObjectFraction == FractionMarker.Fraction.Player)
-    //            {
-    //                UnitsSee.Add(hit.collider.gameObject);
-    //            }
-    //        }
-    //    }
-    //    return UnitsSee;
-    //}
 }

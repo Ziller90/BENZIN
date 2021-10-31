@@ -5,11 +5,14 @@ using System.Collections.Generic;
 public class Vehicle : MonoBehaviour 
 {
     public InputSwitch inputSwitch;
-    public JoystickInputManager inputManager; 
+    public JoystickInputManager inputManager;
+    public ButtonsInput ButtonsInput;
     public float AccelerationSpeed;  
     public float MaxSpeed;
     public float MaxReverseSpeed;
-    public float BrakePower;
+    public float MaxBrakePower;
+    public float MinBrakePower;
+
 
     [HideInInspector] public float AccelerationPower;
     [HideInInspector] public float TurnAngle;
