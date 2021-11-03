@@ -10,9 +10,9 @@ public class AutoGunShoot : MonoBehaviour
     public float Damage;
     public float FireRateInMinute;
     bool IsShooting;
-    bool IsReloaded;
+    bool IsReloaded = true;
 
-    public void Update()
+    public void FixedUpdate()
     {
         IsShooting = buttonsInput.isShooting;
         if (IsShooting && IsReloaded)

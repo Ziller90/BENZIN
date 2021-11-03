@@ -8,52 +8,58 @@ public class AIController : MonoBehaviour
     {
         Following,
         Attacking,
-        Patrolling,
         Idle,
+        Patroling
     }
     public State CurrentState;
-    public Transform ObjectToFollow;
-    public Transform ObjectToAttack;
     public AINavigationManager navigationManager;
+    public AIGunController gunController;
     public AISensors Sensors;
 
-    public float MinDistanceToAttack;
-    public Vector3 MoveTarget;
-
-    public GameObject NearestEnemy;
+    public List<Transform> PatrolWayPoints;
+    public int NextWayPointIndex;
+    
+    public float DistanceToStop;
 
     void Update()
     {
-        SelectState();
-        PerformStateBehaviour();
-    }
-    public void SelectState()
-    {
         if (Sensors.EnemiesInDetectionZone.Count != 0)
         {
-            CurrentState = State.Following;
-            ObjectToFollow = Sensors.NearestEnemy.transform;
+            CurrentState = State.Attacking;
+            Vector3 Offset = (gameObject.transform.position - Sensors.GetEnemy().transform.position).normalized * DistanceToStop; 
+            navigationManager.SetTarget(Sensors.GetEnemy().transform.position + Offset);
+            gunController.SetAttackTarget(Sensors.GetEnemy().transform);
+        }
+        else if (PatrolWayPoints.Count != 0)
+        {
+            CurrentState = State.Patroling;
+            navigationManager.SetTarget(PatrolWayPoints[NextWayPointIndex].position);
+            if (navigationManager.GotTarget == true)
+            {
+                SetNextWaypoint();
+            }
+            gunController.RemoveAttackTarget();
         }
         else
         {
             CurrentState = State.Idle;
+            navigationManager.RemoveTarget();
+            gunController.RemoveAttackTarget();
         }
     }
-    public void PerformStateBehaviour()
+    public void SetNextWaypoint()
     {
-        switch (CurrentState)
+        if ((PatrolWayPoints.Count - 1) < (NextWayPointIndex + 1))
         {
-            case State.Idle:
-                navigationManager.SetTarget(gameObject.transform);
-                break;
-            case State.Attacking:
-
-                break;
-            case State.Following:
-                navigationManager.SetTarget(ObjectToFollow);
-                break;
-            case State.Patrolling:
-                break;
+            NextWayPointIndex = 0;
         }
+        else
+        {
+            NextWayPointIndex++;
+        }
+    }
+    public void Start()
+    {
+
     }
 }

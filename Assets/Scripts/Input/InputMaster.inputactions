@@ -1,0 +1,102 @@
+{
+    "name": "InputMaster",
+    "maps": [
+        {
+            "name": "Vehicle",
+            "id": "a0d2b900-b75b-42a4-b94e-78bbfaaf9daf",
+            "actions": [
+                {
+                    "name": "CarControl",
+                    "type": "Value",
+                    "id": "1acd45cd-d6cc-45fb-ad05-645d0b4f69d0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "GunControl",
+                    "type": "Value",
+                    "id": "773da908-30d1-4dd2-ba3f-ef2bce78743e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "GunIsShooting",
+                    "type": "Button",
+                    "id": "ce370daa-7395-490e-8a8f-7af8cdaa05ec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "CarIsBraking",
+                    "type": "Button",
+                    "id": "03020cbd-4f23-475a-903f-98fefab5b0bf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "db9951dc-803c-440d-9649-d8d03147771a",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XboxControlScheme",
+                    "action": "CarControl",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "af097b19-e798-4557-b554-9f510c5ec2e0",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XboxControlScheme",
+                    "action": "GunControl",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9ad3c11c-e7ac-4806-b997-97e589726b53",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XboxControlScheme",
+                    "action": "GunIsShooting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "438a5588-5f82-4bd1-b0bd-65137124c26e",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CarIsBraking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "XboxControlScheme",
+            "bindingGroup": "XboxControlScheme",
+            "devices": [
+                {
+                    "devicePath": "<XInputController>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

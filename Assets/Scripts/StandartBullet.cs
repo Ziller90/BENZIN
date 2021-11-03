@@ -11,7 +11,7 @@ public class StandartBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         gameObject.transform.position += gameObject.transform.forward * (Speed / 100);
     }

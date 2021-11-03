@@ -34,12 +34,5 @@ public class MouseInput : MonoBehaviour
         JoystickInputManager.Direction = Dirrection;
 
         ButtonsInput.isShooting = Input.GetMouseButton(0);
-        Debug.Log(Input.GetMouseButton(0));
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(MousePosition, 0.3f);
-
     }
 }
