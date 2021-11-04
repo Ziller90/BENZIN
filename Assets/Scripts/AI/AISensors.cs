@@ -9,6 +9,7 @@ public class AISensors : MonoBehaviour
 
     GameObject NearestEnemy;
     public GameObject Vehicle;
+    public FractionMarker VehicleFractionMarker;
 
     public GameObject GetEnemy()
     {
@@ -24,7 +25,7 @@ public class AISensors : MonoBehaviour
     {
         if (NewTrigger.gameObject.GetComponent<FractionMarker>() != null) 
         {
-            if (NewTrigger.gameObject.GetComponent<FractionMarker>().ObjectFraction == FractionMarker.Fraction.Player)
+            if (NewTrigger.gameObject.GetComponent<FractionMarker>().ObjectFraction != VehicleFractionMarker.ObjectFraction)
             {
                 EnemiesInDetectionZone.Add(NewTrigger.gameObject);
             }

@@ -9,6 +9,7 @@ public class AutoGunShoot : MonoBehaviour
     public Transform BulletInstantiatePoint;
     public float Damage;
     public float FireRateInMinute;
+    public Animator GunAnimator;
     bool IsShooting;
     bool IsReloaded = true;
 
@@ -22,6 +23,7 @@ public class AutoGunShoot : MonoBehaviour
     }
     public void Shot()
     {
+        GunAnimator.SetTrigger("Shot");
         GameObject NewBullet = Instantiate(Bullet, BulletInstantiatePoint.position, BulletInstantiatePoint.rotation);
         IsReloaded = false;
         StartCoroutine("Reload");

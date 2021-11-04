@@ -7,7 +7,7 @@ public class Car : MonoBehaviour
     Vehicle ThisVehicle;
     public List<AxleInfo> axleInfos;
     public float MaxSteeringAngle;
-    public float Brake;
+    float Brake;
     public float ExtraRotationSpeed;
 
     float CurrentMaxSpeed;

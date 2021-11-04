@@ -46,6 +46,7 @@ public class Vehicle : MonoBehaviour
             return AngleForwardToDirrection;
         }
     }
+
 }
 
 [System.Serializable] // DONT UNDERSTAND

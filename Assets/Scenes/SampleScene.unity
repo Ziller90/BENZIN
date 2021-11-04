@@ -108,8 +108,8 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 3
     agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentSlope: 18.5
+    agentClimb: 0.6
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -499,6 +499,36 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
+--- !u!1 &181654597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 181654598}
+  m_Layer: 3
+  m_Name: BulletInstantiatePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &181654598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181654597}
+  m_LocalRotation: {x: 0.01990729, y: -0, z: -0, w: 0.9998018}
+  m_LocalPosition: {x: 0.0000012871228, y: 0.12000013, z: 2.7699995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1657157311}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 2.281, y: 0, z: 0}
 --- !u!1 &193066908
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +765,8 @@ GameObject:
   - component: {fileID: 257881591}
   - component: {fileID: 257881590}
   - component: {fileID: 257881597}
+  - component: {fileID: 257881598}
+  - component: {fileID: 257881599}
   m_Layer: 6
   m_Name: AICar
   m_TagString: Vehicle
@@ -777,8 +809,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.1985226, y: 2.1464725, z: 3.6705067}
-  m_Center: {x: 0.024567604, y: 0.5732362, z: -0.04763019}
+  m_Size: {x: 1.6461258, y: 1.6535599, z: 2.980301}
+  m_Center: {x: 0.06243515, y: 0.32677996, z: -0.06720352}
 --- !u!114 &257881592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,7 +823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6140b1b4a5878264ab62efa4bd0985f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectFraction: 0
+  ObjectFraction: 1
 --- !u!114 &257881593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -827,8 +859,8 @@ MonoBehaviour:
   AccelerationSpeed: 300
   MaxSpeed: 90.2
   MaxReverseSpeed: -50
-  MaxBrakePower: 0
-  MinBrakePower: 0
+  MaxBrakePower: 600
+  MinBrakePower: 80
   AccelerationPower: 300
   TurnAngle: 0
   CurrentSpeed: 0
@@ -888,13 +920,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentState: 0
-  ObjectToFollow: {fileID: 0}
-  ObjectToAttack: {fileID: 0}
   navigationManager: {fileID: 1604379926}
+  gunController: {fileID: 1657157317}
   Sensors: {fileID: 2121435324}
-  MinDistanceToAttack: 10
-  MoveTarget: {x: 0, y: 0, z: 0}
-  NearestEnemy: {fileID: 0}
+  PatrolWayPoints: []
+  NextWayPointIndex: 0
+  DistanceToStop: 5
+--- !u!114 &257881598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257881589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd8bfbddbba3e7439db32038f902a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isShooting: 0
+  isBraking: 0
+--- !u!114 &257881599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257881589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a66796812dfd4134ead7c8bcb74ce873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+  CurrentHealth: 0
 --- !u!1 &269052300
 GameObject:
   m_ObjectHideFlags: 0
@@ -2023,8 +2082,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.471968, y: 1, z: 1}
-  m_Center: {x: 0.006126509, y: 0, z: 0}
+  m_Size: {x: 1.3336135, y: 1, z: 1}
+  m_Center: {x: 0.0033399821, y: 0, z: 0}
 --- !u!23 &458560189
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2504,7 +2563,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527073826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.11, z: 1.09}
+  m_LocalPosition: {x: 0, y: 0.11, z: 2.147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1749177917}
@@ -2619,6 +2678,7 @@ GameObject:
   - component: {fileID: 558079733}
   - component: {fileID: 558079734}
   - component: {fileID: 558079735}
+  - component: {fileID: 558079732}
   m_Layer: 6
   m_Name: PlayerCar
   m_TagString: Vehicle
@@ -2690,6 +2750,20 @@ MonoBehaviour:
   AccelerationPower: 300
   TurnAngle: 0
   CurrentSpeed: 0
+--- !u!114 &558079732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558079728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a66796812dfd4134ead7c8bcb74ce873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+  CurrentHealth: 0
 --- !u!114 &558079733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2714,8 +2788,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.1985226, y: 2.1464725, z: 3.6705067}
-  m_Center: {x: 0.024567604, y: 0.5732362, z: -0.04763019}
+  m_Size: {x: 2.1985226, y: 1.6453834, z: 3.023809}
+  m_Center: {x: 0.024567604, y: 0.32269168, z: -0.0053892136}
 --- !u!114 &558079735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3956,7 +4030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0168a2dd891f28e46b07fb11bd2da377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentInputSystem: 1
+  CurrentInputSystem: 0
   AllowAutoRecognition: 0
   LeftVirtualJoystick: {fileID: 2929252284784263078}
   RightVirtualJoystick: {fileID: 1653902702}
@@ -5742,7 +5816,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1320450130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 234.38919, y: -244.43849, z: -218.161}
+  m_LocalPosition: {x: 54.3, y: -40, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5766,7 +5840,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 247
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -6912,7 +6986,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604379924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 257881596}
@@ -6933,7 +7007,10 @@ MonoBehaviour:
   Vehicle: {fileID: 257881596}
   MinDistanceToTarget: 5
   VehicleInput: {fileID: 257881593}
-  Target: {fileID: 558079730}
+  buttonsInput: {fileID: 257881598}
+  Target: {x: 0, y: 0, z: 0}
+  GotTarget: 0
+  Corners: []
 --- !u!195 &1604379927
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7402,6 +7479,8 @@ GameObject:
   - component: {fileID: 1657157314}
   - component: {fileID: 1657157313}
   - component: {fileID: 1657157312}
+  - component: {fileID: 1657157317}
+  - component: {fileID: 1657157318}
   m_Layer: 3
   m_Name: Gun
   m_TagString: Untagged
@@ -7424,6 +7503,7 @@ Transform:
   - {fileID: 554186978}
   - {fileID: 224455320}
   - {fileID: 515411995}
+  - {fileID: 181654598}
   m_Father: {fileID: 257881596}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7521,6 +7601,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657157310}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1657157317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657157310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65eddb2045dbb354280fc1fc4993cfc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Direction: {x: 0, y: 0, z: 0}
+  DistanceToAttack: 20
+  GunController: {fileID: 1657157312}
+  Target: {fileID: 0}
+  DefaultTarget: {fileID: 515411995}
+  EnemyButtonInput: {fileID: 257881598}
+--- !u!114 &1657157318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657157310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e15d7e9e4a0edff4bb5525a3cf9937e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonsInput: {fileID: 257881598}
+  Bullet: {fileID: 6103216458275615302, guid: 8388c13bdd22f2f49b2ebd41be8ed2b7, type: 3}
+  BulletInstantiatePoint: {fileID: 181654598}
+  Damage: 10
+  FireRateInMinute: 30
 --- !u!1 &1664724678
 GameObject:
   m_ObjectHideFlags: 0
@@ -8128,7 +8243,7 @@ MonoBehaviour:
   Bullet: {fileID: 6103216458275615302, guid: 8388c13bdd22f2f49b2ebd41be8ed2b7, type: 3}
   BulletInstantiatePoint: {fileID: 527073827}
   Damage: 5
-  FireRateInMinute: 0
+  FireRateInMinute: 200
 --- !u!1 &1766310421
 GameObject:
   m_ObjectHideFlags: 0
@@ -9066,7 +9181,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SeeEnemy: 0
   EnemiesInDetectionZone: []
-  NearestEnemy: {fileID: 0}
   Vehicle: {fileID: 257881589}
 --- !u!135 &2121435325
 SphereCollider:
