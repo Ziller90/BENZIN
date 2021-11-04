@@ -11,30 +11,28 @@ public class AIController : MonoBehaviour
         Idle,
         Patroling
     }
-    public State CurrentState;
+    public State currentState;
     public AINavigationManager navigationManager;
     public AIGunController gunController;
-    public AISensors Sensors;
-
-    public List<Transform> PatrolWayPoints;
-    public int NextWayPointIndex;
-    
-    public float DistanceToStop;
+    public AISensors sensors;
+    public List<Transform> patrolWayPoints;
+    public int nextWayPointIndex;
+    public float distanceToStop;
 
     void Update()
     {
-        if (Sensors.EnemiesInDetectionZone.Count != 0)
+        if (sensors.enemiesInDetectionZone.Count != 0)
         {
-            CurrentState = State.Attacking;
-            Vector3 Offset = (gameObject.transform.position - Sensors.GetEnemy().transform.position).normalized * DistanceToStop; 
-            navigationManager.SetTarget(Sensors.GetEnemy().transform.position + Offset);
-            gunController.SetAttackTarget(Sensors.GetEnemy().transform);
+            currentState = State.Attacking;
+            Vector3 Offset = (gameObject.transform.position - sensors.GetEnemy().transform.position).normalized * distanceToStop; 
+            navigationManager.SetTarget(sensors.GetEnemy().transform.position + Offset);
+            gunController.SetAttackTarget(sensors.GetEnemy().transform);
         }
-        else if (PatrolWayPoints.Count != 0)
+        else if (patrolWayPoints.Count != 0)
         {
-            CurrentState = State.Patroling;
-            navigationManager.SetTarget(PatrolWayPoints[NextWayPointIndex].position);
-            if (navigationManager.GotTarget == true)
+            currentState = State.Patroling;
+            navigationManager.SetTarget(patrolWayPoints[nextWayPointIndex].position);
+            if (navigationManager.gotTarget == true)
             {
                 SetNextWaypoint();
             }
@@ -42,24 +40,20 @@ public class AIController : MonoBehaviour
         }
         else
         {
-            CurrentState = State.Idle;
+            currentState = State.Idle;
             navigationManager.RemoveTarget();
             gunController.RemoveAttackTarget();
         }
     }
     public void SetNextWaypoint()
     {
-        if ((PatrolWayPoints.Count - 1) < (NextWayPointIndex + 1))
+        if ((patrolWayPoints.Count - 1) < (nextWayPointIndex + 1))
         {
-            NextWayPointIndex = 0;
+            nextWayPointIndex = 0;
         }
         else
         {
-            NextWayPointIndex++;
+            nextWayPointIndex++;
         }
-    }
-    public void Start()
-    {
-
     }
 }

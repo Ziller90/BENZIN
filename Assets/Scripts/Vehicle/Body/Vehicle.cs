@@ -6,30 +6,30 @@ public class Vehicle : MonoBehaviour
 {
     public InputSwitch inputSwitch;
     public JoystickInputManager inputManager;
-    public ButtonsInput ButtonsInput;
-    public float AccelerationSpeed;  
-    public float MaxSpeed;
-    public float MaxReverseSpeed;
-    public float MaxBrakePower;
-    public float MinBrakePower;
+    public ButtonsInput buttonsInput;
+    public float accelerationSpeed;  
+    public float maxSpeed;
+    public float maxReverseSpeed;
+    public float maxBrakePower;
+    public float minBrakePower;
 
 
-    [HideInInspector] public float AccelerationPower;
-    [HideInInspector] public float TurnAngle;
+    [HideInInspector] public float accelerationPower;
+    [HideInInspector] public float turnAngle;
 
-    public float CurrentSpeed;
+    public float currentSpeed;
 
     public void FixedUpdate()
     {
         if (inputManager.CurrentJoystickType == JoystickInputManager.JoystickType.Joystick)
         {
-            AccelerationPower = inputManager.Direction.magnitude;
-            TurnAngle = GetTurnAngle(inputManager.Direction);
+            accelerationPower = inputManager.Direction.magnitude;
+            turnAngle = GetTurnAngle(inputManager.Direction);
         }
         if (inputManager.CurrentJoystickType == JoystickInputManager.JoystickType.Keyboard)
         {
-            AccelerationPower = inputManager.Vertical;
-            TurnAngle = 45f * inputManager.Horizontal;
+            accelerationPower = inputManager.Vertical;
+            turnAngle = 45f * inputManager.Horizontal;
         }
     }
     float GetTurnAngle(Vector3 Direction) 

@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public GameObject ThisObject; // will be deprecated
-    public float MaxHealth;
-    float CurrentHealth;
+    public GameObject thisObject; // will be deprecated
+    public float maxHealth;
+    float currentHealth;
     public void Start()
     {
-        CurrentHealth = MaxHealth;
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (CurrentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Death();
         }
     }
     void Death()
     {
-        Destroy(ThisObject);
+        Destroy(thisObject);
     }
     public void GetDamage(float Damage)
     {
-        CurrentHealth -= Damage;
+        currentHealth -= Damage;
     }
 }

@@ -9,7 +9,7 @@ public class FractionMarker : MonoBehaviour
         Player,
         Enemy
     }
-    public Fraction ObjectFraction;
+    public Fraction objectFraction;
     void Start()
     {
         

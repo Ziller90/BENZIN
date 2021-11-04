@@ -1,36 +1,35 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Tank : MonoBehaviour
 {
-    Vehicle ThisVehicle;
+    Vehicle thisVehicle;
     public List<AxleInfo> axleInfos;
-    public float Brake;
-    public float RotationSpeed;
+    public float brake;
+    public float rotationSpeed;
 
-    float CurrentMaxSpeed;
+    float currentMaxSpeed;
     float motor;
 
     private void Start()
     {
-        ThisVehicle = gameObject.GetComponent<Vehicle>();
+        thisVehicle = gameObject.GetComponent<Vehicle>();
         gameObject.GetComponent<Rigidbody>().centerOfMass = new Vector3(0, -1, 0);
     }
     void FixedUpdate()
     {
-        CurrentMaxSpeed = ThisVehicle.AccelerationPower * ThisVehicle.MaxSpeed;
-        if (ThisVehicle.ButtonsInput.isBraking == true)
+        currentMaxSpeed = thisVehicle.accelerationPower * thisVehicle.maxSpeed;
+        if (thisVehicle.buttonsInput.isBraking == true)
         {
-            Brake = ThisVehicle.MaxBrakePower;
+            brake = thisVehicle.maxBrakePower;
         }
         else
         {
-            Brake = 0;
+            brake = 0;
         }
 
-        TurnToAngle(ThisVehicle.TurnAngle);
-        AddAcceleration(ThisVehicle.AccelerationPower);
+        TurnToAngle(thisVehicle.turnAngle);
+        AddAcceleration(thisVehicle.accelerationPower);
 
         foreach (AxleInfo axleInfo in axleInfos)
         {
@@ -38,41 +37,41 @@ public class Tank : MonoBehaviour
             {
                 axleInfo.leftWheel.motorTorque = motor;
                 axleInfo.rightWheel.motorTorque = motor;
-                axleInfo.leftWheel.brakeTorque = Brake;
-                axleInfo.rightWheel.brakeTorque = Brake;
+                axleInfo.leftWheel.brakeTorque = brake;
+                axleInfo.rightWheel.brakeTorque = brake;
 
-                ThisVehicle.CurrentSpeed = axleInfo.rightWheel.rpm;
+                thisVehicle.currentSpeed = axleInfo.rightWheel.rpm;
             }
         }
     }
     void TurnToAngle(float Angle) // Angle -180 to 180
     {
-        if (ThisVehicle.AccelerationPower < 0)
+        if (thisVehicle.accelerationPower < 0)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, -Angle, 0), RotationSpeed);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, -Angle, 0), rotationSpeed);
         }
         else
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, Angle, 0), RotationSpeed);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, Angle, 0), rotationSpeed);
             if (Mathf.Abs(Angle) > 70)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, Angle, 0), RotationSpeed * ThisVehicle.AccelerationPower * Mathf.Abs(Angle) / 90 / 4);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation * Quaternion.Euler(0, Angle, 0), rotationSpeed * thisVehicle.accelerationPower * Mathf.Abs(Angle) / 90 / 4);
             }
         }
     }
     void AddAcceleration(float AccelerationPower) // Power -1 to 1
     {
-        if (AccelerationPower > 0 && ThisVehicle.CurrentSpeed < CurrentMaxSpeed)
+        if (AccelerationPower > 0 && thisVehicle.currentSpeed < currentMaxSpeed)
         {
-            motor = ThisVehicle.AccelerationSpeed * AccelerationPower;
+            motor = thisVehicle.accelerationSpeed * AccelerationPower;
         }
-        else if (AccelerationPower < 0 && ThisVehicle.CurrentSpeed > ThisVehicle.MaxReverseSpeed)
+        else if (AccelerationPower < 0 && thisVehicle.currentSpeed > thisVehicle.maxReverseSpeed)
         {
-            if (ThisVehicle.CurrentSpeed > 10)
+            if (thisVehicle.currentSpeed > 10)
             {
-                Brake = ThisVehicle.MaxBrakePower;
+                brake = thisVehicle.maxBrakePower;
             }
-            motor = ThisVehicle.AccelerationSpeed * AccelerationPower;
+            motor = thisVehicle.accelerationSpeed * AccelerationPower;
         }
         else
         {

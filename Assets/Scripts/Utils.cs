@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class Utils : MonoBehaviour
 {
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public static Vector3 GetDirection(float Horizontal, float Vertical, int FixAngle)
     {
         Quaternion FixQuaternion = Quaternion.Euler(0, FixAngle, 0);

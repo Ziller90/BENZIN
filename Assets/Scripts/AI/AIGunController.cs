@@ -4,36 +4,36 @@ using UnityEngine;
 
 public class AIGunController : MonoBehaviour
 {
-    public Vector3 Direction;
-    public float DistanceToAttack;
-    public JoystickInputManager GunController;
-    [HideInInspector] public Transform Target;
-    public Transform DefaultTarget;
-    public ButtonsInput EnemyButtonInput;
+    public Vector3 direction;
+    public float distanceToAttack;
+    public JoystickInputManager gunController;
+    [HideInInspector] public Transform target;
+    public Transform defaultTarget;
+    public ButtonsInput enemyButtonInput;
     public void SetAttackTarget(Transform Target)
     {
-        this.Target = Target;
+        this.target = Target;
     }
     public void RemoveAttackTarget()
     {
-        Target = DefaultTarget;
+        target = defaultTarget;
     }
     void Start()
     {
-        Target = DefaultTarget;
+        target = defaultTarget;
     }
     void Update()
     {
-        Direction = Target.position - gameObject.transform.position;
-        GunController.Direction = new Vector3(Direction.x, 0, Direction.z);
+        direction = target.position - gameObject.transform.position;
+        gunController.Direction = new Vector3(direction.x, 0, direction.z);
 
-        if (Target != DefaultTarget && Vector3.Distance(Target.position, gameObject.transform.position) < DistanceToAttack) 
+        if (target != defaultTarget && Vector3.Distance(target.position, gameObject.transform.position) < distanceToAttack) 
         {
-            EnemyButtonInput.isShooting = true;
+            enemyButtonInput.isShooting = true;
         }
         else
         {
-            EnemyButtonInput.isShooting = false;
+            enemyButtonInput.isShooting = false;
         }
 
     }

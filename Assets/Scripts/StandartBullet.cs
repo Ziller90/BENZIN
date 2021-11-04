@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StandartBullet : MonoBehaviour
 {
-    public float Speed;
-    public float Damage;
+    public float speed;
+    public float damage;
     void Start()
     {
         Destroy(gameObject, 4);
@@ -14,13 +14,13 @@ public class StandartBullet : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        gameObject.transform.position += gameObject.transform.forward * (Speed / 100);
+        gameObject.transform.position += gameObject.transform.forward * (speed / 100);
     }
     public void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Health>() != null)
         {
-            other.GetComponent<Health>().GetDamage(Damage);
+            other.GetComponent<Health>().GetDamage(damage);
         }
     }
 }

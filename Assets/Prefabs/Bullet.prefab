@@ -109,8 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac0635dfe880bd4087b54fae0564b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 30
-  Damage: 10
+  speed: 30
+  damage: 5
 --- !u!82 &7132097845679993961
 AudioSource:
   m_ObjectHideFlags: 0
