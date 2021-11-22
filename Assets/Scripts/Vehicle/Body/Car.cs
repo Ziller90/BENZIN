@@ -14,6 +14,10 @@ public class Car : MonoBehaviour
     float motor;
     float steering;
 
+    public float GetSteering()
+    {
+        return steering;
+    }
     private void Start()
     {
         thisVehicle = gameObject.GetComponent<Vehicle>();

@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class WheelRotationView : MonoBehaviour
 {
-    public Vehicle car;
+    public Vehicle vehicle;
     public float speedFactor;
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        gameObject.transform.Rotate(car.currentSpeed * speedFactor, 0, 0);
+        gameObject.transform.Rotate(vehicle.currentSpeed * speedFactor, 0 , 0);
     }
 }

@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class HealthBarView : MonoBehaviour
 {
-    public Transform Canvas;
-    public Transform Camera;
+    public GameObject healthBarPrefab;
+    public Camera camera;
+    StandartHealthBar healthBar;
+    Transform healthBarTransform;
+    public Transform healthBarsListOnCanvas;
+    public Transform objectWithHealthBar;
+    public Vector3 offset;
+    public Health health;
     void Start()
     {
-        
+        GameObject healthBarObject = Instantiate(healthBarPrefab, healthBarsListOnCanvas);
+        healthBarTransform = healthBarObject.GetComponent<Transform>();
+        healthBar = healthBarObject.GetComponent<StandartHealthBar>();
     }
-
-    // Update is called once per frame
     void Update()
     {
-        Canvas.LookAt(Camera);
+        healthBarTransform.position = camera.WorldToScreenPoint(objectWithHealthBar.position) + offset;
+        healthBar.SetBarFillness(health.currentHealth / health.maxHealth);
+    }
+    private void OnDestroy()
+    {
+        if (healthBar != null )
+            Destroy(healthBar.gameObject);
     }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public GameObject thisObject; // will be deprecated
+    public GameObject thisObject; 
     public float maxHealth;
-    float currentHealth;
+    public float currentHealth;
     public void Start()
     {
         currentHealth = maxHealth;
