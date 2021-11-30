@@ -19,13 +19,18 @@ public class Tank : MonoBehaviour
     void FixedUpdate()
     {
         currentMaxSpeed = thisVehicle.accelerationPower * thisVehicle.maxSpeed;
-        if (thisVehicle.buttonsInput.isBraking == true)
+
+        if (thisVehicle.buttonsInput.isBraking == true) 
         {
             brake = thisVehicle.maxBrakePower;
         }
-        else
+        else if (thisVehicle.accelerationPower != 0)
         {
             brake = 0;
+        }
+        else
+        {
+            brake = thisVehicle.minBrakePower;
         }
 
         TurnToAngle(thisVehicle.turnAngle);

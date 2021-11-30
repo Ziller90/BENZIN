@@ -5,6 +5,7 @@ using UnityEngine;
 public class AutoGunShoot : MonoBehaviour
 {
     public ButtonsInput buttonsInput;
+    public GameObject ThisCar;
     public GameObject bullet;
     public Transform bulletInstantiatePoint;
     public float damage;
@@ -13,7 +14,7 @@ public class AutoGunShoot : MonoBehaviour
     bool isShooting;
     bool isReloaded = true;
 
-    public void FixedUpdate()
+    public void LateUpdate()
     {
         isShooting = buttonsInput.isShooting;
         if (isShooting && isReloaded)
@@ -25,6 +26,7 @@ public class AutoGunShoot : MonoBehaviour
     {
         gunAnimator.SetTrigger("Shot");
         GameObject NewBullet = Instantiate(bullet, bulletInstantiatePoint.position, bulletInstantiatePoint.rotation);
+        NewBullet.GetComponent<Bullet>().shootingCar = ThisCar;
         isReloaded = false;
         StartCoroutine("Reload");
     }

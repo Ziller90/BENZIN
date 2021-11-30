@@ -24,9 +24,10 @@ public class AIController : MonoBehaviour
         if (sensors.enemiesInDetectionZone.Count != 0)
         {
             currentState = State.Attacking;
-            Vector3 Offset = (gameObject.transform.position - sensors.GetEnemy().transform.position).normalized * distanceToStop; 
+            Vector3 Offset = (gameObject.transform.position - sensors.GetEnemy().transform.position).normalized * distanceToStop;;
             navigationManager.SetTarget(sensors.GetEnemy().transform.position + Offset);
             gunController.SetAttackTarget(sensors.GetEnemy().transform);
+
         }
         else if (patrolWayPoints.Count != 0)
         {

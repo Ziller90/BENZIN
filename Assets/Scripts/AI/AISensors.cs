@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AISensors : MonoBehaviour
 {
-    public bool seeEnemy;
     public List<GameObject> enemiesInDetectionZone;
 
     GameObject nearestEnemy;
@@ -13,12 +12,7 @@ public class AISensors : MonoBehaviour
 
     public GameObject GetEnemy()
     {
-        return nearestEnemy;
-    }
-    private void FixedUpdate()
-    {
-        if (enemiesInDetectionZone.Count > 0)
-           nearestEnemy = GetNearestEnemy();
+        return GetNearestEnemy();
     }
 
     private void OnTriggerEnter(Collider NewTrigger)

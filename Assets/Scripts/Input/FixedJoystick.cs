@@ -30,7 +30,7 @@ public class FixedJoystick : MonoBehaviour, IPointerUpHandler, IDragHandler, IPo
         HandleBackGround = Handle.transform.parent.gameObject;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         Vertical = Handle.transform.localPosition.y / 100;
         Horizontal = (Handle.transform.localPosition.x / 100);
