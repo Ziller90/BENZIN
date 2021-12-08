@@ -22,15 +22,15 @@ public class StandartBullet : Bullet
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Sensor" && other.gameObject != shootingCar && other.gameObject.tag != "Bullet")
+        if (other.tag != "Sensor" && other.gameObject != shootingObject && other.gameObject.tag != "Bullet" && isCollided == false)
         {
             isCollided = true;
-            if (other.GetComponent<Health>() != null)
+            if (other.transform.GetComponent<HitBox>() != null)
             {
-                other.GetComponent<Health>().GetDamage(damage);
+                other.transform.parent.GetComponent<HitBox>().ObjectHealth.GetDamage(damage);
             }
             Destroy(bulletMesh);
-            Destroy(gameObject, 0.5f);
+            Destroy(gameObject, 3f);
         }
 
     }
@@ -45,5 +45,5 @@ public class StandartBullet : Bullet
 }
 public abstract class Bullet : MonoBehaviour
 {
-    public GameObject shootingCar;
+    public GameObject shootingObject;
 }

@@ -26,7 +26,7 @@ public class AutoGunShoot : MonoBehaviour
     {
         gunAnimator.SetTrigger("Shot");
         GameObject NewBullet = Instantiate(bullet, bulletInstantiatePoint.position, bulletInstantiatePoint.rotation);
-        NewBullet.GetComponent<Bullet>().shootingCar = ThisCar;
+        NewBullet.GetComponent<Bullet>().shootingObject = ThisCar;
         isReloaded = false;
         StartCoroutine("Reload");
     }

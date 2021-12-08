@@ -8,7 +8,7 @@ public class StandartBulletImpact : MonoBehaviour
     public Bullet bullet;
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag != "Sensor" && collider.gameObject != bullet.shootingCar && collider.tag != "Bullet")
+        if (collider.tag != "Sensor" && collider.gameObject != bullet.shootingObject && collider.tag != "Bullet")
         {
             BulletCollisionExplosion.Play();
         }
