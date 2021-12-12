@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AutoGunShoot : MonoBehaviour
 {
-    public ButtonsInput buttonsInput;
+    ButtonsInput buttonsInput;
+    public VehicleControlManager controlManager;
     public GameObject ThisCar;
     public GameObject bullet;
     public Transform bulletInstantiatePoint;
-    public float damage;
     public float fireRateInMinute;
     public Animator gunAnimator;
     bool isShooting;
@@ -16,6 +16,7 @@ public class AutoGunShoot : MonoBehaviour
 
     public void LateUpdate()
     {
+        buttonsInput = controlManager.CurrentButtonInput;
         isShooting = buttonsInput.isShooting;
         if (isShooting && isReloaded)
         {

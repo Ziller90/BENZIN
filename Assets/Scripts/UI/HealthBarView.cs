@@ -14,6 +14,9 @@ public class HealthBarView : MonoBehaviour
     public Health health;
     void Start()
     {
+        healthBarsListOnCanvas = LinkContainer.instance.healthBarList;
+        camera = LinkContainer.instance.mainCamera;
+
         GameObject healthBarObject = Instantiate(healthBarPrefab, healthBarsListOnCanvas);
         healthBarTransform = healthBarObject.GetComponent<Transform>();
         healthBar = healthBarObject.GetComponent<StandartHealthBar>();

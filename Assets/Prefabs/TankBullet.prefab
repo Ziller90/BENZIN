@@ -29085,9 +29085,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac0635dfe880bd4087b54fae0564b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingCar: {fileID: 0}
+  shootingObject: {fileID: 0}
   speed: 150
-  damage: 5
+  damage: 40
   timeToDestroy: 4
   bulletMesh: {fileID: 8860210521656198728}
   isCollided: 0

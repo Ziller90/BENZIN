@@ -14,12 +14,22 @@ public class AISensors : MonoBehaviour
     {
         return GetNearestEnemy();
     }
-
+    public void Update()
+    {
+        foreach(GameObject enemy in enemiesInDetectionZone)
+        {
+            if (enemy == null)
+            {
+                enemiesInDetectionZone.Remove(enemy);
+                break;
+            }
+        }
+    }
     private void OnTriggerEnter(Collider NewTrigger)
     {
         if (NewTrigger.gameObject.GetComponent<FractionMarker>() != null) 
         {
-            if (NewTrigger.gameObject.GetComponent<FractionMarker>().objectFraction != vehicleFractionMarker.objectFraction)
+            if (NewTrigger.gameObject.GetComponent<FractionMarker>().objectFraction != vehicleFractionMarker.objectFraction && NewTrigger.gameObject.GetComponent<FractionMarker>().objectFraction != FractionMarker.Fraction.None)
             {
                 enemiesInDetectionZone.Add(NewTrigger.gameObject);
             }
@@ -37,9 +47,13 @@ public class AISensors : MonoBehaviour
         float MinDistance = 1000000;
         foreach (GameObject point in enemiesInDetectionZone)
         {
-            if (Vector3.Distance(gameObject.transform.position, point.transform.position) < MinDistance)
+            if (point != null)
             {
-                nearestEnemy = point;
+                if (Vector3.Distance(gameObject.transform.position, point.transform.position) < MinDistance)
+                {
+                    nearestEnemy = point;
+                    MinDistance = Vector3.Distance(gameObject.transform.position, point.transform.position);
+                }
             }
         }
         return nearestEnemy;

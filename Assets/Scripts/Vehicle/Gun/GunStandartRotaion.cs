@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GunStandartRotaion : MonoBehaviour
 {
-    public JoystickInputManager gunControlJoystick;
+    JoystickInputManager gunControlJoystick;
+    public VehicleControlManager controlManager;
     public float gunRotationSpeed;
     public Transform car;
 
@@ -13,6 +14,7 @@ public class GunStandartRotaion : MonoBehaviour
 
     void FixedUpdate()
     {
+        gunControlJoystick = controlManager.CurrentGunInput;
         carRotationAngle = Quaternion.Euler(0, -car.rotation.eulerAngles.y, 0);
         Quaternion LookDirrection = new Quaternion();
         direction = carRotationAngle * gunControlJoystick.Direction;

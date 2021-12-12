@@ -6,22 +6,40 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameManager playersVehice;
     public Health playersVehicleHealth;
+    public VehicleControlManager playerVehicleControl;
+    public Transform cameraFollowingPoint;
     public CanvasGroup gameOverPanel;
     public float speed;
     public float timeToGameOverScreen;
+    public bool HavePlayerCarOnScene;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playersVehicleHealth.currentHealth <= 0)
+        if (HavePlayerCarOnScene)
+            playerVehicleControl.controlMaster = VehicleControlManager.ControlMaster.Player;
+
+        if (HavePlayerCarOnScene)
         {
-            StartCoroutine("ShowGameOverScreen");
+            if (playersVehicleHealth.currentHealth <= 0)
+            {
+                StartCoroutine("ShowGameOverScreen");
+            }
         }
+    }
+    public void ChangePlayerVehicle(VehicleControlManager newPlayerVehicleControl, Transform newCameraFollowingPoint, Health NewVehicleHealth)
+    {
+        playerVehicleControl.controlMaster = VehicleControlManager.ControlMaster.AI;
+        playerVehicleControl = newPlayerVehicleControl;
+        playerVehicleControl.controlMaster = VehicleControlManager.ControlMaster.Player;
+        cameraFollowingPoint = newCameraFollowingPoint;
+        playersVehicleHealth = NewVehicleHealth;
     }
     IEnumerator ShowGameOverScreen()
     {

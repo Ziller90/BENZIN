@@ -6,10 +6,10 @@ public class AIGunController : MonoBehaviour
 {
     public Vector3 direction;
     public float distanceToAttack;
-    public JoystickInputManager gunController;
+    public JoystickInputManager AIGunInput;
     [HideInInspector] public Transform target;
     public Transform defaultTarget;
-    public ButtonsInput enemyButtonInput;
+    public ButtonsInput AIButtonInput;
     public void SetAttackTarget(Transform Target)
     {
         this.target = Target;
@@ -24,16 +24,22 @@ public class AIGunController : MonoBehaviour
     }
     void Update()
     {
-        direction = target.position - gameObject.transform.position;
-        gunController.Direction = new Vector3(direction.x, 0, direction.z);
+        if (target != null)
+        {
+            if (target != defaultTarget)
+            {
+                direction = target.position - gameObject.transform.position;
+                AIGunInput.Direction = new Vector3(direction.x, 0, direction.z);
+            }
 
-        if (target != defaultTarget && Vector3.Distance(target.position, gameObject.transform.position) < distanceToAttack) 
-        {
-            enemyButtonInput.isShooting = true;
-        }
-        else
-        {
-            enemyButtonInput.isShooting = false;
+            if (target != defaultTarget && Vector3.Distance(target.position, gameObject.transform.position) < distanceToAttack)
+            {
+                AIButtonInput.isShooting = true;
+            }
+            else
+            {
+                AIButtonInput.isShooting = false;
+            }
         }
 
     }

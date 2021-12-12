@@ -19,24 +19,38 @@ public class AIController : MonoBehaviour
     public int nextWayPointIndex;
     public float distanceToStop;
 
+    public Quaternion RandomAngle;
+
+    public void Start()
+    {
+        StartCoroutine("SetRandomAngle");
+        navigationManager.gotTarget += GotTarget;
+    }
+    IEnumerator SetRandomAngle()
+    {
+        while (true)
+        {
+            RandomAngle = Quaternion.Euler(0, Random.Range(-30, 30), 0);
+            yield return new WaitForSeconds(10);
+        }
+    }
+
     void Update()
     {
         if (sensors.enemiesInDetectionZone.Count != 0)
         {
-            currentState = State.Attacking;
-            Vector3 Offset = (gameObject.transform.position - sensors.GetEnemy().transform.position).normalized * distanceToStop;;
-            navigationManager.SetTarget(sensors.GetEnemy().transform.position + Offset);
-            gunController.SetAttackTarget(sensors.GetEnemy().transform);
-
+            if (sensors.GetEnemy() != null)
+            {
+                currentState = State.Attacking;
+                Vector3 RandomOffset = (RandomAngle * (gameObject.transform.position - sensors.GetEnemy().transform.position).normalized) * distanceToStop;
+                navigationManager.SetTarget(sensors.GetEnemy().transform.position + RandomOffset);
+                gunController.SetAttackTarget(sensors.GetEnemy().transform);
+            }
         }
         else if (patrolWayPoints.Count != 0)
         {
             currentState = State.Patroling;
             navigationManager.SetTarget(patrolWayPoints[nextWayPointIndex].position);
-            if (navigationManager.gotTarget == true)
-            {
-                SetNextWaypoint();
-            }
             gunController.RemoveAttackTarget();
         }
         else
@@ -44,6 +58,13 @@ public class AIController : MonoBehaviour
             currentState = State.Idle;
             navigationManager.RemoveTarget();
             gunController.RemoveAttackTarget();
+        }
+    }
+    void GotTarget()
+    {
+        if (currentState == State.Patroling)
+        {
+            SetNextWaypoint();
         }
     }
     public void SetNextWaypoint()
@@ -57,4 +78,5 @@ public class AIController : MonoBehaviour
             nextWayPointIndex++;
         }
     }
+
 }

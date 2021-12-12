@@ -27,7 +27,7 @@ public class StandartBullet : Bullet
             isCollided = true;
             if (other.transform.GetComponent<HitBox>() != null)
             {
-                other.transform.parent.GetComponent<HitBox>().ObjectHealth.GetDamage(damage);
+                other.transform.GetComponent<HitBox>().ObjectHealth.GetDamage(damage);
             }
             Destroy(bulletMesh);
             Destroy(gameObject, 3f);

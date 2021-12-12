@@ -5,6 +5,7 @@ using UnityEngine;
 public class MouseInput : MonoBehaviour
 {
     public JoystickInputManager JoystickInputManager;
+    public GameManager gameManager;
     public Transform Vehicle;
     public Camera MainCamera;
     public Vector3 VehicleScreenPosition;
@@ -15,8 +16,14 @@ public class MouseInput : MonoBehaviour
     public Vector3 Offset;
     public float OffsetLength;
 
+    public void Start()
+    {
+
+    }
     void Update()
     {
+        Vehicle = gameManager.cameraFollowingPoint;
+
         RaycastHit hit;
         Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
 

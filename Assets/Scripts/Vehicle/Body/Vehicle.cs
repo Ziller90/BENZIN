@@ -5,15 +5,15 @@ using System.Collections.Generic;
 public class Vehicle : MonoBehaviour 
 {
     public InputSwitch inputSwitch;
-    public JoystickInputManager inputManager;
-    public ButtonsInput buttonsInput;
+    public VehicleControlManager controlManager;
     public float accelerationSpeed;  
     public float maxSpeed;
     public float maxReverseSpeed;
     public float maxBrakePower;
     public float minBrakePower;
 
-
+    [HideInInspector] public JoystickInputManager inputManager;
+    [HideInInspector] public ButtonsInput buttonsInput;
     [HideInInspector] public float accelerationPower;
     [HideInInspector] public float turnAngle;
 
@@ -21,6 +21,9 @@ public class Vehicle : MonoBehaviour
 
     public void FixedUpdate()
     {
+        inputManager = controlManager.CurrentVehicleInput;
+        buttonsInput = controlManager.CurrentButtonInput;
+
         if (inputManager.CurrentJoystickType == JoystickInputManager.JoystickType.Joystick)
         {
             accelerationPower = inputManager.Direction.magnitude;
