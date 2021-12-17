@@ -15,7 +15,9 @@ public class AIController : MonoBehaviour
     public AINavigationManager navigationManager;
     public AIGunController gunController;
     public AISensors sensors;
-    public List<Transform> patrolWayPoints;
+    List<Transform> patrolWayPoints;
+    public Route PatrollingRoute;
+    public bool HavePatrollingRoute;
     public int nextWayPointIndex;
     public float distanceToStop;
 
@@ -23,6 +25,9 @@ public class AIController : MonoBehaviour
 
     public void Start()
     {
+        if (HavePatrollingRoute)
+          patrolWayPoints = PatrollingRoute.WayPoints;
+
         StartCoroutine("SetRandomAngle");
         navigationManager.gotTarget += GotTarget;
     }
@@ -47,7 +52,7 @@ public class AIController : MonoBehaviour
                 gunController.SetAttackTarget(sensors.GetEnemy().transform);
             }
         }
-        else if (patrolWayPoints.Count != 0)
+        else if (HavePatrollingRoute)
         {
             currentState = State.Patroling;
             navigationManager.SetTarget(patrolWayPoints[nextWayPointIndex].position);

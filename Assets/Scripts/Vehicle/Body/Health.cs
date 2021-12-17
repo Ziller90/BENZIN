@@ -28,4 +28,12 @@ public class Health : MonoBehaviour
     {
         currentHealth -= Damage;
     }
+    public void AddHealth(float helath)
+    {
+        currentHealth += helath;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
 }

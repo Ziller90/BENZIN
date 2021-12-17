@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Route : MonoBehaviour
 {
-    public int exp;
-    public int Level
-    {
-        get { return exp / 1000; }
-    }
     public List<Transform> WayPoints = new List<Transform>();
     public Color GizmosRouteColor;
     void Start()

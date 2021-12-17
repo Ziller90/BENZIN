@@ -4,44 +4,64 @@ using UnityEngine;
 
 public class AISensors : MonoBehaviour
 {
+    public List<GameObject> fractionInitsInDetectionZone;
     public List<GameObject> enemiesInDetectionZone;
-
     GameObject nearestEnemy;
-    public GameObject vehicle;
-    public FractionMarker vehicleFractionMarker;
+    public FractionMarker objectFractionMarker;
 
     public GameObject GetEnemy()
     {
         return GetNearestEnemy();
     }
+
     public void Update()
     {
-        foreach(GameObject enemy in enemiesInDetectionZone)
+        foreach (GameObject unit in fractionInitsInDetectionZone)
         {
-            if (enemy == null)
+            if (unit != null)
             {
-                enemiesInDetectionZone.Remove(enemy);
-                break;
+                FractionMarker unitMarker = unit.GetComponent<FractionMarker>();
+                if (unitMarker.objectFraction != objectFractionMarker.objectFraction && unitMarker.objectFraction != FractionMarker.Fraction.None)
+                {
+                    if (enemiesInDetectionZone.Contains(unit) == false)
+                    {
+                        enemiesInDetectionZone.Add(unit);
+                    }
+                }
+                else
+                {
+                    enemiesInDetectionZone.Remove(unit);
+                }
+            }
+            else
+            {
+                enemiesInDetectionZone.Remove(unit);
+                fractionInitsInDetectionZone.Remove(unit);
             }
         }
     }
+
+
+    // First step. Find every fraction unit in range
     private void OnTriggerEnter(Collider NewTrigger)
     {
         if (NewTrigger.gameObject.GetComponent<FractionMarker>() != null) 
         {
-            if (NewTrigger.gameObject.GetComponent<FractionMarker>().objectFraction != vehicleFractionMarker.objectFraction && NewTrigger.gameObject.GetComponent<FractionMarker>().objectFraction != FractionMarker.Fraction.None)
-            {
-                enemiesInDetectionZone.Add(NewTrigger.gameObject);
-            }
+             fractionInitsInDetectionZone.Add(NewTrigger.gameObject);
         }
     }
     private void OnTriggerExit(Collider Trigger)
     {
+        if (fractionInitsInDetectionZone.Contains(Trigger.gameObject))
+        {
+            fractionInitsInDetectionZone.Remove(Trigger.gameObject);
+        }
         if (enemiesInDetectionZone.Contains(Trigger.gameObject))
         {
             enemiesInDetectionZone.Remove(Trigger.gameObject);
         }
     }
+
     public GameObject GetNearestEnemy()
     {
         float MinDistance = 1000000;

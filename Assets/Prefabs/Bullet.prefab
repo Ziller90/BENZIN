@@ -4892,7 +4892,7 @@ Transform:
   m_GameObject: {fileID: 3745745123454880471}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.46739876, y: 0.46739876, z: 0.46739876}
   m_Children:
   - {fileID: 3745745123454588671}
   - {fileID: 3745745123454588661}
@@ -29085,9 +29085,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac0635dfe880bd4087b54fae0564b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingCar: {fileID: 0}
+  shootingObject: {fileID: 0}
   speed: 150
-  damage: 5
+  damage: 2.5
   timeToDestroy: 4
   bulletMesh: {fileID: 8860210521656198728}
   isCollided: 0

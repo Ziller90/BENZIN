@@ -869,7 +869,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4799563777343501107}
   m_LocalRotation: {x: -0, y: -0, z: 1.6420282e-15, w: 1}
-  m_LocalPosition: {x: 1.08, y: 1.67, z: 0.54}
+  m_LocalPosition: {x: 1.08, y: 1.67, z: 0.409}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4799563779284531138}
@@ -1398,9 +1398,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39065da731b0ae4cbe06ea1d3cd8f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fractionInitsInDetectionZone: []
   enemiesInDetectionZone: []
-  vehicle: {fileID: 4799563778151404241}
-  vehicleFractionMarker: {fileID: 4799563778312083068}
+  objectFractionMarker: {fileID: 4799563778312083068}
 --- !u!1 &4799563777980531534
 GameObject:
   m_ObjectHideFlags: 0
@@ -6162,6 +6162,7 @@ Transform:
   - {fileID: 4799563778311808380}
   - {fileID: 4799563778881806106}
   - {fileID: 5459282654068648614}
+  - {fileID: 8987435404644502167}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6309,7 +6310,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4799563778289095707}
   m_LocalRotation: {x: -0, y: -0, z: 1.6420282e-15, w: 1}
-  m_LocalPosition: {x: 1.12, y: -1.59, z: 0.53}
+  m_LocalPosition: {x: 1.12, y: -1.59, z: 0.399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4799563779284531138}
@@ -6599,7 +6600,7 @@ GameObject:
   - component: {fileID: 4799563778312083071}
   - component: {fileID: 4799563778312083064}
   m_Layer: 0
-  m_Name: VehicleView
+  m_Name: VehicleBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6794,7 +6795,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4799563778433900005}
   m_LocalRotation: {x: -0, y: -0, z: 1.6420282e-15, w: 1}
-  m_LocalPosition: {x: -1.11, y: -1.61, z: 0.58}
+  m_LocalPosition: {x: -1.11, y: -1.61, z: 0.449}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4799563779284531138}
@@ -6855,7 +6856,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4799563778841549265}
   m_LocalRotation: {x: -0, y: -0, z: 1.6420282e-15, w: 1}
-  m_LocalPosition: {x: -1.02, y: 1.7, z: 0.56}
+  m_LocalPosition: {x: -1.02, y: 1.7, z: 0.429}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4799563779284531138}
@@ -6942,7 +6943,8 @@ MonoBehaviour:
   navigationManager: {fileID: 4799563777998549767}
   gunController: {fileID: 4799563777427109671}
   sensors: {fileID: 4799563777933178162}
-  patrolWayPoints: []
+  PatrollingRoute: {fileID: 0}
+  HavePatrollingRoute: 0
   nextWayPointIndex: 0
   distanceToStop: 15
   RandomAngle: {x: 0, y: 0, z: 0, w: 0}
@@ -12940,6 +12942,74 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &8267737608374654412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8987435404644502167}
+  - component: {fileID: 1913973143936781191}
+  - component: {fileID: 4301338426372179729}
+  m_Layer: 0
+  m_Name: PlayerCarChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8987435404644502167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267737608374654412}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4799563778151404202}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1913973143936781191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267737608374654412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acdfc9643c1d5b149851547f20ad2147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowPanel: 0
+  controlManager: {fileID: 4799563778151404203}
+  vehicle: {fileID: 4799563778151404241}
+  vehicleHealth: {fileID: 4799563778151404200}
+  cameraFollowingPoint: {fileID: 4799563777237874534}
+  fractionMarker: {fileID: 4799563778312083068}
+  isEmptyVehicle: 0
+  DistanceToShowChangeVehicleButton: 10
+--- !u!114 &4301338426372179729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267737608374654412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faaaebe7731832641985ccc77d4bc1ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldPosition: {fileID: 4799563778151404202}
+  offset: {x: 0, y: 10, z: 0}
+  panelToShowPrefab: {fileID: 4810859137232877134, guid: a685ecb01ff9dea48bbf7315bf44c94a, type: 3}
+  panelShower: {fileID: 1913973143936781191}
 --- !u!1 &8469797551886101439
 GameObject:
   m_ObjectHideFlags: 0

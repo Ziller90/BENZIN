@@ -29087,7 +29087,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingObject: {fileID: 0}
   speed: 150
-  damage: 40
+  damage: 30
   timeToDestroy: 4
   bulletMesh: {fileID: 8860210521656198728}
   isCollided: 0

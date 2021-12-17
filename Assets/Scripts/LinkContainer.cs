@@ -14,6 +14,8 @@ public class LinkContainer : MonoBehaviour
 
     public Camera mainCamera;
     public Transform healthBarList;
+    public GameManager gameManager;
+    public Transform panelList;
 
     public static LinkContainer instance;
     public void Awake()

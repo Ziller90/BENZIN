@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameManager playersVehice;
+    public GameObject playersVehice;
     public Health playersVehicleHealth;
     public VehicleControlManager playerVehicleControl;
+    public FractionMarker playerVehicleFractionMarker;
+    public PlayerCarChanger playerCarChanger;
     public Transform cameraFollowingPoint;
     public CanvasGroup gameOverPanel;
     public float speed;
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator ShowGameOverScreen()
     {
+        gameOverPanel.gameObject.SetActive(true);
         yield return new WaitForSeconds(timeToGameOverScreen);
         while (gameOverPanel.alpha < 1)
         {

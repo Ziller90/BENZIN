@@ -51,7 +51,8 @@ MonoBehaviour:
   navigationManager: {fileID: 188554560758925714}
   gunController: {fileID: 188554561540081331}
   sensors: {fileID: 188554559864439709}
-  patrolWayPoints: []
+  PatrollingRoute: {fileID: 0}
+  HavePatrollingRoute: 0
   nextWayPointIndex: 0
   distanceToStop: 15
   RandomAngle: {x: 0, y: 0, z: 0, w: 0}
@@ -198,9 +199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39065da731b0ae4cbe06ea1d3cd8f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fractionInitsInDetectionZone: []
   enemiesInDetectionZone: []
-  vehicle: {fileID: 188554560624849027}
-  vehicleFractionMarker: {fileID: 188554560591425573}
+  objectFractionMarker: {fileID: 188554560591425573}
 --- !u!135 &188554559864439710
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2571,6 +2572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3676474313650378252}
   - component: {fileID: 182191306711065546}
+  - component: {fileID: 2897245224667362156}
   m_Layer: 0
   m_Name: PlayerCarChanger
   m_TagString: Untagged
@@ -2586,7 +2588,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4373029709729672215}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.88105, y: -24.149256, z: -1.2480927}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 188554560624849034}
@@ -2604,6 +2606,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acdfc9643c1d5b149851547f20ad2147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowPanel: 0
+  controlManager: {fileID: 188554560624849029}
+  vehicle: {fileID: 188554560624849027}
+  vehicleHealth: {fileID: 188554560624849030}
+  cameraFollowingPoint: {fileID: 188554561574962907}
+  fractionMarker: {fileID: 188554560591425573}
+  isEmptyVehicle: 0
+  DistanceToShowChangeVehicleButton: 10
+--- !u!114 &2897245224667362156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4373029709729672215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faaaebe7731832641985ccc77d4bc1ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldPosition: {fileID: 188554560624849034}
+  offset: {x: 0, y: 10, z: 0}
+  panelToShowPrefab: {fileID: 4810859137232877134, guid: a685ecb01ff9dea48bbf7315bf44c94a, type: 3}
+  panelShower: {fileID: 182191306711065546}
 --- !u!1 &4691530561851396355
 GameObject:
   m_ObjectHideFlags: 0
